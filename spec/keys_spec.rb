@@ -66,8 +66,8 @@ module FakeRedis
     it "should determine if a key exists" do
       @client.set("key1", "1")
 
-      expect(@client.exists("key1")).to eq(true)
-      expect(@client.exists("key2")).to eq(false)
+      expect(@client.exists?("key1")).to eq(true)
+      expect(@client.exists?("key2")).to eq(false)
     end
 
     it "should set a key's time to live in seconds" do
@@ -134,7 +134,7 @@ module FakeRedis
       @client.set("key1", "1")
       @client.expireat("key1", Time.now.to_i)
 
-      expect(@client.exists("key1")).to be false
+      expect(@client.exists?("key1")).to be false
     end
 
     it "should get integer and string keys" do
@@ -409,7 +409,7 @@ module FakeRedis
 
     describe "#dump" do
       it "returns nil for unknown key" do
-        expect(@client.exists("key1")).to be false
+        expect(@client.exists?("key1")).to be false
         expect(@client.dump("key1")).to be nil
       end
 
@@ -445,7 +445,7 @@ module FakeRedis
           @dumped_value = @client.dump("key1")
 
           @client.del("key1")
-          expect(@client.exists("key1")).to be false
+          expect(@client.exists?("key1")).to be false
         end
 
         it "restores to a new key successfully" do
@@ -508,6 +508,19 @@ module FakeRedis
         expect(@client.psetex("key", 1000, "value")).to eq("OK")
       end
     end
+
+    describe "#exists?" do
+      before do
+        @client.set("key1", "1")
+      end
+
+      it "should return true for existing value" do
+        expect(@client.exists?("key1")).to eq true
+      end
+
+      it "should return false for unexisting value" do
+        expect(@client.exists?("key2")).to eq false
+      end
+    end
   end
 end
-
