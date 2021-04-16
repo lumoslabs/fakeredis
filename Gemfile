@@ -6,7 +6,7 @@ gem 'rdoc'
 platforms :rbx do
   gem 'racc'
   gem 'rubysl', '~> 2.0'
-  gem 'psych', '~> 2.2',
+  gem 'psych', '~> 3.0.0'
 end
 
 # Specify your gem's dependencies in fakeredis.gemspec
