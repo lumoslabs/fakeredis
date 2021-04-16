@@ -1,15 +1,14 @@
-dist: xenial
 os: linux
+dist: trusty
 language: ruby
 cache: bundler
 # Use the faster container based infrastructure
 # http://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure/
 
 rvm:
-  - 2.4
   - 2.5
   - 2.6
-  - ruby-head
+  - 2.7
   - jruby
   - rbx-2
 
